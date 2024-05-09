@@ -28,7 +28,7 @@ public class StudentController {
     }
 
     @GetMapping("/students/{id}")
-    public  ResponseEntity<Student> getStudentById(@PathVariable Long id){
+    public  ResponseEntity<Student> getStudentById(@PathVariable Integer id){
         Student student = studentService.getStudentById(id);
         if (student != null){
             return ResponseEntity.ok(student);
@@ -39,20 +39,31 @@ public class StudentController {
 
     @PostMapping("/students")
     public  ResponseEntity<Student> updateStudent(@RequestBody Student student){
-        student.setId(0L);
-        student = studentService.updateStudent(student);
+        student.setId(0);
+        student = studentService.saveAndFlush(student);
         return  ResponseEntity.status(HttpStatus.CREATED).body(student);
     }
 
     @PutMapping("/students/{id}")
-    public ResponseEntity<Student> updateStudentById(@PathVariable Long id, @RequestBody Student student){
+    public ResponseEntity<Student> updateStudentById(@PathVariable Integer id, @RequestBody Student student){
         Student Existingstudent =  studentService.getStudentById(id);
-        if (student == null){
+        if (Existingstudent != null){
             Existingstudent.setFirstName(student.getFirstName());
             Existingstudent.setLastName(student.getLastName());
             Existingstudent.setEmail(student.getEmail());
-            studentService.updateStudent(Existingstudent);
+            studentService.saveAndFlush(Existingstudent);
             return ResponseEntity.ok(Existingstudent);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/students/{id}")
+    public  ResponseEntity<Void> deleteStudentById(@PathVariable Integer id){
+        Student Existingstudent =  studentService.getStudentById(id);
+        if (Existingstudent != null){
+            studentService.delete(id);
+            return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
         }

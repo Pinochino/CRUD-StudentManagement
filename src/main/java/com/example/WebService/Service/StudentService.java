@@ -11,11 +11,11 @@ public interface StudentService {
 
     List<Student> getAllStudents();
 
-    Student getStudentById(Long id);
+    Student getStudentById(int id);
 
-    Student addStudent(Student student);
+    Student save(Student student);
     
-    Student updateStudent(Student student);
+    Student saveAndFlush(Student student);
 
-    Student deleteStudent(Long id);
+    Student delete(Integer id);
 }
