@@ -23,10 +23,11 @@ public class Student {
 
     public Student() {}
 
-    public Student(String email, String lastName, String firstName) {
+    public Student(Integer id, String email, String lastName, String firstName) {
         this.email = email;
         this.lastName = lastName;
         this.firstName = firstName;
+        this.id = id;
     }
 
 }
