@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-
 @Service
 public class StudentServiceImpl implements  StudentService{
 
@@ -19,6 +18,7 @@ public class StudentServiceImpl implements  StudentService{
     public StudentServiceImpl(StudentRepository studentRepository){
         this.studentRepository = studentRepository;
     }
+
     @Override
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
@@ -43,7 +43,7 @@ public class StudentServiceImpl implements  StudentService{
 
     @Override
     @Transactional
-    public Student delete(Integer id) {
-        return studentRepository.deleteById(id);
+    public void delete(Integer id) {
+        studentRepository.deleteById(id);
     }
 }

@@ -17,5 +17,5 @@ public interface StudentService {
     
     Student saveAndFlush(Student student);
 
-    Student delete(Integer id);
+    void delete(Integer id);
 }

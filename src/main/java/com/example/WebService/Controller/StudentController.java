@@ -63,20 +63,18 @@ public class StudentController {
         Student Existingstudent =  studentService.getStudentById(id);
         if (Existingstudent != null){
             studentService.delete(id);
-            return ResponseEntity.ok().build();
-        } else {
+
+            List<Student> studentList = studentService.getAllStudents();
+            for (Student s:studentList) {
+               if (s.getId() > id){
+                   s.setId(s.getId() - 1);
+                   studentService.save(s);
+               }
+            }
+                return ResponseEntity.ok().build();
+            } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-
-    // @Override
-    // public String toString() {
-    //     return "Please select: " +
-    //             "1: Lấy danh sách tất cả sinh viên"+
-    //             "2: Lấy thông tin chi tiết của sinh viên dựa trên ID"+
-    //             "3: Thêm 1 sinh viên mới "+
-    //             "4: Cập nhật thông tin của sinh viên dựa trên ID" +
-    //             "5: Xóa 1 sinh viên dựa trên ID";
-    // }
 }
