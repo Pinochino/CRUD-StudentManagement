@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import '/WebService/src/main/resources/templates/frontend/src/Style.css';
+
 
 export default function Home() {
   let [users, setUser] = useState([]);
@@ -37,7 +39,7 @@ export default function Home() {
                 <td>
                     <button className="btn btn-primary mx-2">View</button>
                     <button className="btn btn-outline-primary mx-2">Edit</button>
-                    <button className="btn btn-primary mx-2">Delete</button>
+                    <button className="btn btn-danger mx-2">Delete</button>
                 </td>
               </tr>
             ))

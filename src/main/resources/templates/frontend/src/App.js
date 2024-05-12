@@ -3,7 +3,8 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './layouts/Navbar';
 import Home from './pages/Home';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AddUser from './users/addUser';
+import AddUser from './users/AddUser';
+import '/WebService/src/main/resources/templates/frontend/src/Style.css';
 
 
 function App() {
