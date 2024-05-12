@@ -5,29 +5,32 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Students")
+@Table(name = "students")
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 45)
-    private String email;
+    @Column(name= "fullname", length = 45)
+    private String Fullname;
+    
+    @Column(name= "email", length = 45)
+    private String Email;
 
-    @Column(name = "last_name", length = 45)
-    private String lastName;
+    @Column(name = "password", length = 45)
+    private String Password;
 
-    @Column(name = "first_name", length = 45)
-    private String firstName;
+    @Column(name = "sex", length = 45)
+    private String Sex;
 
     public Student() {}
 
-    public Student(Integer id, String email, String lastName, String firstName) {
-        this.email = email;
-        this.lastName = lastName;
-        this.firstName = firstName;
+    public Student(Integer id, String fullname, String email, String password, String sex) {
         this.id = id;
+        Fullname = fullname;
+        Email = email;
+        Password = password;
+        Sex = sex;
     }
-
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("http://localhost:3001")
 @RequestMapping("/api")
 public class StudentController {
 
@@ -49,9 +49,10 @@ public class StudentController {
     public ResponseEntity<Student> updateStudentById(@PathVariable Integer id, @RequestBody Student student){
         Student Existingstudent =  studentService.getStudentById(id);
         if (Existingstudent != null){
-            Existingstudent.setFirstName(student.getFirstName());
-            Existingstudent.setLastName(student.getLastName());
+            Existingstudent.setFullname(student.getFullname());
+            Existingstudent.setPassword(student.getPassword());
             Existingstudent.setEmail(student.getEmail());
+            Existingstudent.setSex(student.getSex());
             studentService.saveAndFlush(Existingstudent);
             return ResponseEntity.ok(Existingstudent);
         } else {
