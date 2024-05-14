@@ -1,37 +1,50 @@
-import React, { useState } from "react";
-import "/WebService/src/main/resources/templates/frontend/src/Style.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function AddUser() {
+export default function EditUser(){
+    let navigate = useNavigate();
+    let {id} = useParams();
 
 
-  let navigate = useNavigate();
   let [user, setUser] = useState({
-    name: "",
+    fullname: "",
     email: "",
     password: "",
     sex: "",
   });
 
-  let { name, email, password, sex } = user;
+  let { fullname, email, password, sex } = user;
 
   let onInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  let onSubmit = async(e) => {
+  let onSexChange = (e) => {
+    setUser({ ...user, sex: e.target.value });
+  }
+
+  let onSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:8080/api/students", user)
+    await axios.put(`http://localhost:8080/api/students/${id}`, user);
     navigate("/");
   };
-  
+
+  let loadUsers= async () => {
+    let result =await axios.get(`http://localhost:8080/api/students/${id}`, user);
+    setUser(result.data);
+  }
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
   return (
     <div className="container">
       <div className="row">
         <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
           <h2 className="text-center m-4">Register User</h2>
-          <form action={(e) => onSubmit(e)}>
+          <form onSubmit={(e) => onSubmit(e)}>
             <div className="mb-3 form-group">
               <label htmlFor="Name" className="form-label">
                 Name:{" "}
@@ -40,9 +53,9 @@ export default function AddUser() {
                 type={"text"}
                 className="form-control"
                 placeholder="Enter your name...."
-                name="name"
+                name="fullname"
                 required
-                value={name}
+                value={fullname}
                 onChange={(e) => onInputChange(e)}
               ></input>
             </div>
@@ -94,28 +107,36 @@ export default function AddUser() {
 
             <div className="mb-3 form-group">
               <label htmlFor="Sex" className="form-label">
-                Sex:
+                Sex:</label>
+              <div>
                 <input
-                  type={"checkbox"}
+                  type={"radio"}
                   className="form-checkbox"
-                  name="female"
-                  value={sex}
-                  onChange={(e) => onInputChange(e)}
+                  name="sex"
+                  value="famale"
+                  checked={sex === "female"}
+                  onChange={(e) => onSexChange(e)}
                 ></input>
-                female
+                <label className="form-check-label">Female</label>
+              </div>
+
+              <div>
                 <input
-                  type={"checkbox"}
+                  type={"radio"}
                   className="form-checkbox"
-                  name="male"
-                  value={sex}
-                  onChange={(e) => onInputChange(e)}
+                  name="sex"
+                  value="male"
+                  checked={sex === "male"}
+                  onChange={(e) => onSexChange(e)}
                 ></input>
-                male
-              </label>
+                <label className="form-check-label">Male</label>
+
+              </div>
+
             </div>
             <div className="form-button">
-              <button className="btn btn-outline-primary">Sign in</button>
-              <button className="btn btn-outline-dangerm mx-2">Log out</button>
+              <button className="btn btn-outline-primary" >Update</button>
+              <button className="btn btn-outline-danger mx-2">Log out</button>
             </div>
           </form>
         </div>

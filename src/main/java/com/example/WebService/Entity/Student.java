@@ -26,8 +26,7 @@ public class Student {
 
     public Student() {}
 
-    public Student(Integer id, String fullname, String email, String password, String sex) {
-        this.id = id;
+    public Student(String fullname, String email, String password, String sex) {
         Fullname = fullname;
         Email = email;
         Password = password;
